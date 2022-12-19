@@ -45,11 +45,19 @@ stages:
             arguments: '-c Release --no-restore'
             zipAfterPublish: true
             publishWebProjects: true
-
-        - task: PublishBuildArtifacts@1
+            
+        - task: CmdLine@2
           inputs:
-            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-            ArtifactName: '$(package_name)'
+            script: |
+              ls '$(System.DefaultWorkingDirectory)'
+              
+              ls '$(System.DefaultWorkingDirectory)/bin'
+              
+        - task: PublishPipelineArtifact@1
+          inputs:
+            targetPath: '$(System.DefaultWorkingDirectory)/bin/WebApp'
+            artifact: '$(package_name)'
+            publishLocation: 'pipeline'
             
 #        - task: UniversalPackages@0
 #          displayName: 'Universal publish'

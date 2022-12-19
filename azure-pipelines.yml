@@ -56,27 +56,27 @@ stages:
             versionOption: patch
             publishPackageMetadata: true
 
-    - stage: 'CD'
-      displayName: 'CD'
-      dependsOn: CI
-      condition: succeeded('CI')
-      jobs:
-      - job: deploy
-        pool:
-          name: $(pool_name)
-          vmImage: $(vmImage)
-        steps:
-        - task: UniversalPackages@0
-          displayName: 'Universal download'
-          inputs:
-            vstsFeed: 'e04a8b62-136c-499e-89ee-b1cb86e443fb/f242475f-7098-4d1c-a39e-4f1bae10870b'
-            vstsFeedPackage: '$(package_name)'
-            vstsPackageVersion: '*'
-            verbosity: Debug
-        - task: AzureRmWebAppDeployment@4
-          displayName: 'Azure App Service Deploy: $(app_service_name)'
-          inputs:
-            azureSubscription: 'andreandrade_internal(29eb732c-7f74-4314-82af-336bfd45139d)'
-            appType: webApp
-            WebAppName: '$(app_service_name)'
-            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+#    - stage: 'CD'
+#      displayName: 'CD'
+#      dependsOn: CI
+#      condition: succeeded('CI')
+#      jobs:
+#      - job: deploy
+#        pool:
+#          name: $(pool_name)
+#          vmImage: $(vmImage)
+#        steps:
+#        - task: UniversalPackages@0
+#          displayName: 'Universal download'
+#          inputs:
+#            vstsFeed: 'e04a8b62-136c-499e-89ee-b1cb86e443fb/f242475f-7098-4d1c-a39e-4f1bae10870b'
+#            vstsFeedPackage: '$(package_name)'
+#            vstsPackageVersion: '*'
+#            verbosity: Debug
+#        - task: AzureRmWebAppDeployment@4
+#          displayName: 'Azure App Service Deploy: $(app_service_name)'
+#          inputs:
+#            azureSubscription: 'andreandrade_internal(29eb732c-7f74-4314-82af-336bfd45139d)'
+#            appType: webApp
+#            WebAppName: '$(app_service_name)'
+#            packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'

@@ -45,16 +45,22 @@ stages:
             arguments: '-c Release --no-restore'
             zipAfterPublish: true
             publishWebProjects: true
-        - task: UniversalPackages@0
-          displayName: 'Universal publish'
+
+        - task: PublishBuildArtifacts@1
           inputs:
-            command: publish
-            publishDirectory: '$(System.DefaultWorkingDirectory)'
-            vstsFeedPublish: 'e04a8b62-136c-499e-89ee-b1cb86e443fb/f242475f-7098-4d1c-a39e-4f1bae10870b'
-            vstsFeedPackagePublish: '$(package_name)'
-            verbosity: Debug
-            versionOption: patch
-            publishPackageMetadata: true
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: '$(package_name)'
+            
+#        - task: UniversalPackages@0
+#          displayName: 'Universal publish'
+#          inputs:
+#            command: publish
+#            publishDirectory: '$(System.DefaultWorkingDirectory)'
+#            vstsFeedPublish: 'e04a8b62-136c-499e-89ee-b1cb86e443fb/f242475f-7098-4d1c-a39e-4f1bae10870b'
+#            vstsFeedPackagePublish: '$(package_name)'
+#            verbosity: Debug
+#            versionOption: patch
+#            publishPackageMetadata: true
 
 #    - stage: 'CD'
 #      displayName: 'CD'

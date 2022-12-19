@@ -42,7 +42,7 @@ stages:
           displayName: 'dotnet publish'
           inputs:
             command: publish
-            arguments: '-c Release --no-restore'
+            arguments: '-c Release --no-restore --output $(Build.ArtifactStagingDirectory)'
             zipAfterPublish: true
             publishWebProjects: true
             
@@ -51,13 +51,12 @@ stages:
             script: |
               ls '$(System.DefaultWorkingDirectory)'
               
-              ls '$(System.DefaultWorkingDirectory)/bin'
+              ls '$(Build.ArtifactStagingDirectory)/bin'
               
         - task: PublishPipelineArtifact@1
           inputs:
-            targetPath: '$(System.DefaultWorkingDirectory)/bin/WebApp'
+            targetPath: '$(Build.ArtifactStagingDirectory)'
             artifact: '$(package_name)'
-            publishLocation: 'pipeline'
             
 #        - task: UniversalPackages@0
 #          displayName: 'Universal publish'

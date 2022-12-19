@@ -45,15 +45,6 @@ stages:
             arguments: '-c Release --no-restore --output $(Build.ArtifactStagingDirectory)'
             zipAfterPublish: true
             publishWebProjects: true
-            
-        - task: CmdLine@2
-          inputs:
-            script: |
-              ls '$(System.DefaultWorkingDirectory)'
-              
-              echo '-------------------------------------'
-
-              ls '$(Build.ArtifactStagingDirectory)'
               
         - task: PublishPipelineArtifact@1
           inputs:

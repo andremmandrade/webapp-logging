@@ -51,7 +51,9 @@ stages:
             script: |
               ls '$(System.DefaultWorkingDirectory)'
               
-              ls '$(Build.ArtifactStagingDirectory)/bin'
+              echo '-------------------------------------'
+
+              ls '$(Build.ArtifactStagingDirectory)'
               
         - task: PublishPipelineArtifact@1
           inputs:
